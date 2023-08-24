@@ -5,13 +5,15 @@ function count_revisions() {
 	global $page_id, $from_rev_id, $to_rev_id;
 
 	$range_clause = "";
+	$query = "";
+
 	if (isset($from_rev_id) && isset($to_rev_id)) {
 		$range_clause = "
 			AND revision.rev_timestamp > (SELECT rev_timestamp FROM revision WHERE rev_id = $from_rev_id)
 			AND revision.rev_timestamp < (SELECT rev_timestamp FROM revision WHERE rev_id = $to_rev_id)
 		";
 	}
-
+	
 	if (isset($page_id)) {
 		$query = "
 			SELECT count(revision.rev_id)
