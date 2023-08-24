@@ -16,7 +16,7 @@ function count_revisions() {
 	
 	if (isset($page_id)) {
 		$query = "
-			SELECT count(revision.rev_id)
+			SELECT count(revision.rev_id) as count
 			FROM revision
 			JOIN page ON revision.rev_page = page_id
 			WHERE page.page_id = $page_id
