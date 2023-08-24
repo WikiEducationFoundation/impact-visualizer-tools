@@ -64,19 +64,18 @@ function load_wiki_name($query_array) {
 }
 
 function load_parameters($query_array) {
-	global $start, $end, $sql_rev_ids,
-		$training_page_id;
+	global $page_id, $from_rev_id, $to_rev_id
 
-	if(isset($query_array["start"])) {
-	  $start = escape_and_quote($query_array["start"]);
+	if(isset($query_array["page_id"])) {
+	  $page_id = escape_and_quote($query_array["page_id"]);
 	}
 
-	if(isset($query_array["end"])) {
-	  $end = escape_and_quote($query_array["end"]);
+	if(isset($query_array["from_rev_id"])) {
+	  $from_rev_id = escape_and_quote($query_array["from_rev_id"]);
 	}
 
-	if(isset($query_array["revision_ids"])) {
-	  $sql_rev_ids = escape_implode($query_array["revision_ids"]);
+	if(isset($query_array["to_rev_id"])) {
+	  $to_rev_id = escape_and_quote($query_array["to_rev_id"]);
 	}
 }
 
@@ -97,15 +96,8 @@ function echo_query_results($query) {
 // Main.
 if (php_sapi_name() !== 'cli') {
 	global $db;
-	if ($_SERVER["REQUEST_METHOD"] === "POST") {
-		load_wiki_name($_POST);
-		$db = get_db();
-		load_parameters($_POST);
-	}
-	else {
-		load_wiki_name($_GET);
-		$db = get_db();
-		load_parameters($_GET);
-	}
+	load_wiki_name($_GET);
+	$db = get_db();
+	load_parameters($_GET);
 	// Control flow continues in endpoint module.
 }
