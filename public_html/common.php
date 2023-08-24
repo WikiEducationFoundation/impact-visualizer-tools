@@ -64,7 +64,7 @@ function load_wiki_name($query_array) {
 }
 
 function load_parameters($query_array) {
-	global $page_id, $from_rev_id, $to_rev_id
+	global $page_id, $from_rev_id, $to_rev_id;
 
 	if(isset($query_array["page_id"])) {
 	  $page_id = escape_and_quote($query_array["page_id"]);
